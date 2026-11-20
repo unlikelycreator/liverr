@@ -3,14 +3,18 @@ import { config } from './config.js';
 
 mongoose.set('strictQuery', true);
 
-export async function connectDb() {
-  if (!config.mongoUri) {
-    console.warn('[db] MONGODB_URI is not set: API will start, but data routes will fail until it is configured.');
-    return false;
+// Cached across invocations so serverless functions reuse one connection.
+let pending = null;
+export function ensureDb() {
+  if (mongoose.connection.readyState === 1) return Promise.resolve();
+  if (!config.mongoUri) return Promise.reject(new Error('MONGODB_URI is not set'));
+  if (!pending) {
+    pending = mongoose
+      .connect(config.mongoUri, { serverSelectionTimeoutMS: 10000 })
+      .then(() => console.log('[db] connected'))
+      .catch((e) => { pending = null; throw e; });
   }
-  await mongoose.connect(config.mongoUri, { serverSelectionTimeoutMS: 10000 });
-  console.log('[db] connected');
-  return true;
+  return pending;
 }
 
 export const dbReady = () => mongoose.connection.readyState === 1;
