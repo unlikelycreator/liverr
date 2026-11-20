@@ -6,7 +6,7 @@
 [build.environment]
   NODE_VERSION = "22"
   # Overridden by the VITE_API_URL environment variable set in the Netlify UI, if any.
-  VITE_API_URL = "https://liverr-api.onrender.com"
+  VITE_API_URL = "https://liverr-api-unlikelycreators-projects.vercel.app"
 
 [[redirects]]
   from = "/*"
