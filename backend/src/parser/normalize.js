@@ -57,6 +57,12 @@ export function normalizeRecord(raw, fallbackDate) {
     tags: arr(raw.tags),
   };
 
+  // Models often fill unused numeric fields with 0; a zero measurement carries no information.
+  for (const k of ['value', 'durationMin', 'distanceKm', 'calories', 'sets', 'reps', 'weightKg']) if (out[k] === 0) delete out[k];
+  if (out.items) out.items = out.items.map((x) => (/^[a-z]/.test(x) ? titleCase(x) : x));
+  if (category === 'health' && out.value !== undefined && !out.unit)
+    out.unit = { sleep: 'h', weight: 'kg', water: 'l', steps: 'steps' }[subtype];
+
   if (category === 'finance') {
     if (out.amount === undefined) return null;
     out.amount = Math.abs(out.amount);

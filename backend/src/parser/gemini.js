@@ -66,7 +66,13 @@ Rules:
 - Money: numbers only, positive. Default currency ${config.currency} unless another is explicit ($ = USD, € = EUR, £ = GBP, ₹/rs = INR). "1.2k" = 1200.
 - Convert durations to minutes, distances to km, weights to kg, water to litres (1 glass = 0.25 l).
 - Sleep goes to health/sleep with value in hours and unit "h".
-- Titles: concise and specific, Title Case for names ("Oppenheimer", "Chicken Biryani", "5K Morning Run"). Media title is just the work name, without "the movie".
+- Titles: concise, specific, Title Case, using only words from the entry. Never use a bare category or subtype word ("Breakfast", "Sleep", "Expense") as the title.
+  - food: the dishes eaten ("Poha, Chai"); put each dish in items.
+  - finance: what the money was for, plus the merchant if known ("Lunch at Blue Tokai", "Freelance Payment").
+  - media: just the work's name ("Dune Part Two"), without "the movie".
+  - exercise: activity plus main metric ("Run 5 km", "Leg Day").
+  - health: metric plus value ("Slept 7 h", "Weight 72.4 kg", "Water 2 l").
+  - mood: the feeling words used ("Productive").
 - Mood: at most one mood record for the entry unless the mood clearly changed; rating 1-5.
 - Do not create note records for things already captured by another category.`;
 }
