@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+[data-theme='light'] {
+  --bg: 250 250 250;
+  --panel: 255 255 255;
+  --elev: 244 244 245;
+  --line: 230 230 233;
+  --line2: 212 212 216;
+  --fg: 9 9 11;
+  --muted: 82 82 91;
+  --faint: 140 140 150;
+  --accent: 99 82 255;
+  --accent-fg: 255 255 255;
+  --shadow: 9 9 11;
+  color-scheme: light;
+}
+[data-theme='dark'] {
+  --bg: 9 9 11;
+  --panel: 15 15 18;
+  --elev: 24 24 28;
+  --line: 33 33 38;
+  --line2: 48 48 55;
+  --fg: 244 244 246;
+  --muted: 161 161 170;
+  --faint: 105 105 115;
+  --accent: 139 124 255;
+  --accent-fg: 255 255 255;
+  --shadow: 0 0 0;
+  color-scheme: dark;
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-bg text-fg font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'ss01';
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: rgb(var(--accent) / 0.25); }
+  * { border-color: rgb(var(--line)); }
+  :focus-visible { outline: 2px solid rgb(var(--accent) / 0.6); outline-offset: 2px; border-radius: 6px; }
+  input, textarea, select, button { font: inherit; color: inherit; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: rgb(var(--line2)); border-radius: 99px; border: 3px solid rgb(var(--bg)); }
+  ::-webkit-scrollbar-track { background: transparent; }
+}
+
+@layer components {
+  .card { @apply rounded-xl border border-line bg-panel shadow-card; }
+  .btn {
+    @apply inline-flex h-8 select-none items-center justify-center gap-1.5 whitespace-nowrap rounded-lg px-3 text-[13px] font-medium
+      transition-[background,color,box-shadow,opacity] duration-150 disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-primary { @apply btn bg-fg text-bg hover:opacity-90; }
+  .btn-accent { @apply btn bg-accent text-accent-fg hover:brightness-110; }
+  .btn-ghost { @apply btn text-muted hover:bg-elev hover:text-fg; }
+  .btn-outline { @apply btn border border-line bg-panel text-fg hover:bg-elev; }
+  .btn-icon { @apply btn h-8 w-8 px-0 text-muted hover:bg-elev hover:text-fg; }
+  .input {
+    @apply h-9 w-full rounded-lg border border-line bg-panel px-3 text-[13px] text-fg outline-none transition-shadow
+      placeholder:text-faint focus:border-accent/60 focus:shadow-ring;
+  }
+  .label { @apply mb-1.5 block text-2xs font-medium uppercase tracking-[0.06em] text-faint; }
+  .kbd {
+    @apply inline-flex h-5 min-w-5 items-center justify-center rounded border border-line bg-elev px-1 font-mono text-[10px] text-muted;
+  }
+  .chip { @apply inline-flex h-6 items-center gap-1.5 rounded-md border border-line bg-elev/60 px-2 text-xs text-muted; }
+  .num { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum', 'cv11'; }
+  .skeleton { @apply relative overflow-hidden rounded-md bg-elev; }
+  .skeleton::after {
+    content: ''; position: absolute; inset: 0; transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgb(var(--fg) / 0.04), transparent);
+    animation: shimmer 1.4s infinite;
+  }
+  @keyframes shimmer { 100% { transform: translateX(100%); } }
+}

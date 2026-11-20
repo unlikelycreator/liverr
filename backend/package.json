@@ -1,0 +1,23 @@
+{
+  "name": "liverr-api",
+  "version": "1.0.0",
+  "description": "Liverr API - journal-driven life tracker",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test test/*.test.js"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.10",
+    "express": "^4.22.3",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.24.10"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  }
+}
